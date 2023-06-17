@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { baseUrl } from '../shared';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate,Link } from 'react-router-dom';
 import { LoginContext } from '../App';
+import Register from './Register';
 
 export default function Login() {
     const [loggedIn, setLoggedIn] = useContext(LoginContext);
@@ -34,13 +35,13 @@ export default function Login() {
                 navigate(
                     location?.state?.previousUrl
                         ? location.state.previousUrl
-                        : '/customers'
+                        : '/Lectures'
                 );
             });
     }
 
     return (
-        <form className="m-2 w-full max-w-sm" id="customer" onSubmit={login}>
+        <form className="m-2 w-full max-w-sm" id="Lecture" onSubmit={login}>
             <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/4">
                     <label for="username">Username</label>
@@ -79,6 +80,9 @@ export default function Login() {
             <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                 Login
             </button>
+            <p><Link to='/register'>
+            Don't have account register here!
+            </Link></p>
         </form>
     );
 }

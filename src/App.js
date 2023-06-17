@@ -1,13 +1,13 @@
 import './index.css';
 import { createContext, useState, useEffect } from 'react';
 import Header from './components/Header';
-import Employees from './pages/Employees';
+import Student from './pages/Student';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Customers from './pages/Customers';
+import Lectures from './pages/Lectures';
 import Dictionary from './pages/Dictionary';
 import Definition from './pages/Definition';
 import NotFound from './components/NotFound';
-import Customer from './pages/Customer';
+import Lecture from './pages/Lecture';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { baseUrl } from './shared';
@@ -60,14 +60,14 @@ function App() {
             <BrowserRouter>
                 <Header>
                     <Routes>
-                        <Route path="/employees" element={<Employees />} />
+                        <Route path="/Student" element={<Student />} />
                         <Route path="/dictionary" element={<Dictionary />} />
                         <Route
                             path="/dictionary/:search"
                             element={<Definition key={new Date().getTime()} />}
                         />
-                        <Route path="/customers" element={<Customers />} />
-                        <Route path="/customers/:id" element={<Customer />} />
+                        <Route path="/Lectures" element={<Lectures />} />
+                        <Route path="/Lectures/:id" element={<Lecture />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/404" element={<NotFound />} />

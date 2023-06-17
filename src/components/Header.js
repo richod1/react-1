@@ -4,10 +4,11 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { NavLink } from 'react-router-dom';
 import { LoginContext } from '../App';
+import Register from '../pages/Register';
 
 const navigation = [
-    { name: 'Employees', href: '/Employees' },
-    { name: 'Customers', href: '/Customers' },
+    { name: 'Student', href: '/Student' },
+    { name: 'Lectures', href: '/Lectures' },
     { name: 'Dictionary', href: '/dictionary' },
 ];
 

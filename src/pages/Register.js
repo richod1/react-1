@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { baseUrl } from '../shared';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate,Link} from 'react-router-dom';
 import { LoginContext } from '../App';
 
 export default function Register() {
@@ -8,6 +8,10 @@ export default function Register() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [email, setEmail] = useState();
+    const [name,setName]=useState()
+    const [programme,setProgramme]=useState()
+    const [indexNumber,setIndexNumber]=useState()
+    const [course,setCourse]=useState()
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -27,7 +31,7 @@ export default function Register() {
             },
             body: JSON.stringify({
                 email: email,
-                username: username,
+                name: name,
                 password: password,
             }),
         })
@@ -41,13 +45,31 @@ export default function Register() {
                 navigate(
                     location?.state?.previousUrl
                         ? location.state.previousUrl
-                        : '/customers'
+                        : '/Lectures'
                 );
             });
     }
 
     return (
-        <form className="m-2 w-full max-w-sm" id="customer" onSubmit={login}>
+        <form className="m-2 w-full max-w-sm" id="Lecture" onSubmit={login}>
+            <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/4">
+                    <label for="email">FullName</label>
+                </div>
+
+                <div className="md:w-3/4">
+                    <input
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="email"
+                        type="name"
+                        value={name}
+                        onChange={(e) => {
+                            setName(e.target.value);
+                        }}
+                    />
+                </div>
+            </div>
+
             <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/4">
                     <label for="email">Email</label>
@@ -67,17 +89,55 @@ export default function Register() {
             </div>
             <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/4">
-                    <label for="username">Username</label>
+                    <label for="index-number">IndexNumber</label>
                 </div>
 
                 <div className="md:w-3/4">
                     <input
                         className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                         id="username"
-                        type="text"
-                        value={username}
+                        type="nuumber"
+                        placholder='bcict****'
+                        value={indexNumber}
                         onChange={(e) => {
-                            setUsername(e.target.value);
+                            setIndexNumber(e.target.value);
+                        }}
+                    />
+                </div>
+            </div>
+
+            <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/4">
+                    <label for="programme">Programme</label>
+                </div>
+
+                <div className="md:w-3/4">
+                    <input
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="email"
+                        type="text"
+                        value={programme}
+                        onChange={(e) => {
+                            setProgramme(e.target.value);
+                        }}
+                    />
+                </div>
+            </div>
+
+
+            <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/4">
+                    <label for="email">Course</label>
+                </div>
+
+                <div className="md:w-3/4">
+                    <input
+                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                        id="email"
+                        type="text"
+                        value={course}
+                        onChange={(e) => {
+                            setCourse(e.target.value);
                         }}
                     />
                 </div>
@@ -103,6 +163,9 @@ export default function Register() {
             <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                 Register
             </button>
+            <p><Link to='/login'>
+            Already have account login here!
+            </Link></p>
         </form>
     );
 }

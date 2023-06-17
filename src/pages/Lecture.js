@@ -4,12 +4,12 @@ import NotFound from '../components/NotFound';
 import { baseUrl } from '../shared';
 import { LoginContext } from '../App';
 
-export default function Customer() {
+export default function Lecture() {
     const [loggedIn, setLoggedIn] = useContext(LoginContext);
     const { id } = useParams();
     const navigate = useNavigate();
-    const [customer, setCustomer] = useState();
-    const [tempCustomer, setTempCustomer] = useState();
+    const [Lecture, setLecture] = useState();
+    const [tempLecture, setTempLecture] = useState();
     const [notFound, setNotFound] = useState();
     const [changed, setChanged] = useState(false);
     const [error, setError] = useState();
@@ -17,18 +17,18 @@ export default function Customer() {
     const location = useLocation();
 
     useEffect(() => {
-        if (!customer) return;
-        if (!customer) return;
+        if (!Lecture) return;
+        if (!Lecture) return;
 
         let equal = true;
-        if (customer.name !== tempCustomer.name) equal = false;
-        if (customer.industry !== tempCustomer.industry) equal = false;
+        if (Lecture.name !== tempLecture.name) equal = false;
+        if (Lecture.Course !== tempLecture.Course) equal = false;
 
         if (equal) setChanged(false);
     });
 
     useEffect(() => {
-        const url = baseUrl + 'api/customers/' + id;
+        const url = baseUrl + 'api/Lectures/' + id;
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -55,8 +55,8 @@ export default function Customer() {
                 return response.json();
             })
             .then((data) => {
-                setCustomer(data.customer);
-                setTempCustomer(data.customer);
+                setLecture(data.Lecture);
+                setTempLecture(data.Lecture);
                 setError(undefined);
             })
             .catch((e) => {
@@ -64,16 +64,16 @@ export default function Customer() {
             });
     }, []);
 
-    function updateCustomer(e) {
+    function updateLecture(e) {
         e.preventDefault();
-        const url = baseUrl + 'api/customers/' + id;
+        const url = baseUrl + 'api/Lectures/' + id;
         fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + localStorage.getItem('access'),
             },
-            body: JSON.stringify(tempCustomer),
+            body: JSON.stringify(tempLecture),
         })
             .then((response) => {
                 if (response.status === 401) {
@@ -88,7 +88,7 @@ export default function Customer() {
                 return response.json();
             })
             .then((data) => {
-                setCustomer(data.customer);
+                setLecture(data.Lecture);
                 setChanged(false);
                 setError(undefined);
             })
@@ -99,18 +99,18 @@ export default function Customer() {
 
     return (
         <div class="p-3">
-            {notFound ? <p>The customer with id {id} was not found</p> : null}
+            {notFound ? <p>The Lecture with id {id} was not found</p> : null}
 
-            {customer ? (
+            {Lecture ? (
                 <div>
                     <form
                         className="w-full max-w-sm"
-                        id="customer"
-                        onSubmit={updateCustomer}
+                        id="Lecture"
+                        onSubmit={updateLecture}
                     >
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/4">
-                                <label for="name">Name</label>
+                                <label htmlFor="name">Name</label>
                             </div>
 
                             <div className="md:w-3/4">
@@ -118,11 +118,11 @@ export default function Customer() {
                                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                                     id="name"
                                     type="text"
-                                    value={tempCustomer.name}
+                                    value={tempLecture.name}
                                     onChange={(e) => {
                                         setChanged(true);
-                                        setTempCustomer({
-                                            ...tempCustomer,
+                                        setTempLecture({
+                                            ...tempLecture,
                                             name: e.target.value,
                                         });
                                     }}
@@ -132,20 +132,20 @@ export default function Customer() {
 
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/4">
-                                <label for="industry">Industry</label>
+                                <label htmlFor="Course">Course</label>
                             </div>
 
                             <div className="md:w-3/4">
                                 <input
-                                    id="industry"
+                                    id="Course"
                                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                                     type="text"
-                                    value={tempCustomer.industry}
+                                    value={tempLecture.Course}
                                     onChange={(e) => {
                                         setChanged(true);
-                                        setTempCustomer({
-                                            ...tempCustomer,
-                                            industry: e.target.value,
+                                        setTempLecture({
+                                            ...tempLecture,
+                                            Course: e.target.value,
                                         });
                                     }}
                                 />
@@ -157,14 +157,14 @@ export default function Customer() {
                             <button
                                 className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 mr-2 rounded"
                                 onClick={(e) => {
-                                    setTempCustomer({ ...customer });
+                                    setTempLecture({ ...Lecture });
                                     setChanged(false);
                                 }}
                             >
                                 Cancel
                             </button>
                             <button
-                                form="customer"
+                                form="Lecture"
                                 className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
                             >
                                 Save
@@ -176,7 +176,7 @@ export default function Customer() {
                         <button
                             className="bg-slate-800 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded"
                             onClick={(e) => {
-                                const url = baseUrl + 'api/customers/' + id;
+                                const url = baseUrl + 'api/Lectures/' + id;
                                 fetch(url, {
                                     method: 'DELETE',
                                     headers: {
@@ -201,7 +201,7 @@ export default function Customer() {
                                                 'Something went wrong'
                                             );
                                         }
-                                        navigate('/customers');
+                                        navigate('/Lectures');
                                     })
                                     .catch((e) => {
                                         setError(e.message);
@@ -216,7 +216,7 @@ export default function Customer() {
 
             {error ? <p>{error}</p> : null}
             <br />
-            <Link to="/customers">
+            <Link to="/Lectures">
                 <button className="no-underline bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     ← Go back
                 </button>

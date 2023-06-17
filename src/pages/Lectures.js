@@ -1,13 +1,13 @@
 import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import AddCustomer from '../components/AddCustomer';
+import AddLecture from '../components/AddLecture';
 import { baseUrl } from '../shared';
 import { LoginContext } from '../App';
 import useFetch from '../hooks/UseFetch';
 
-export default function Customers() {
+export default function Lectures() {
     const [loggedIn, setLoggedIn] = useContext(LoginContext);
-    //const [customers, setCustomers] = useState();
+    //const [Lectures, setLectures] = useState();
     const [show, setShow] = useState(false);
 
     function toggleShow() {
@@ -17,11 +17,11 @@ export default function Customers() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const url = baseUrl + 'api/customers/';
+    const url = baseUrl + 'api/Lectures/';
     const {
         request,
         appendData,
-        data: { customers } = {},
+        data: { Lectures } = {},
         errorStatus,
     } = useFetch(url, {
         method: 'GET',
@@ -36,11 +36,11 @@ export default function Customers() {
     }, []);
 
     //useEffect(() => {
-    //    console.log(request, appendData, customers, errorStatus);
+    //    console.log(request, appendData, Lectures, errorStatus);
     //});
 
-    function newCustomer(name, industry) {
-        appendData({ name: name, industry: industry });
+    function newLecture(name, Course) {
+        appendData({ name: name, Course: Course });
 
         if (!errorStatus) {
             toggleShow();
@@ -49,14 +49,14 @@ export default function Customers() {
 
     return (
         <>
-            <h1>Here are our customers:</h1>
-            {customers
-                ? customers.map((customer) => {
+            <h1>Here are our Lectures:</h1>
+            {Lectures
+                ? Lectures.map((Lecture) => {
                       return (
-                          <div className="m-2" key={customer.id}>
-                              <Link to={'/customers/' + customer.id}>
+                          <div className="m-2" key={Lecture.id}>
+                              <Link to={'/Lectures/' + Lecture.id}>
                                   <button className="no-underline bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                      {customer.name}
+                                      {Lecture.name}
                                   </button>
                               </Link>
                           </div>
@@ -64,8 +64,8 @@ export default function Customers() {
                   })
                 : null}
 
-            <AddCustomer
-                newCustomer={newCustomer}
+            <AddLecture
+                newLecture={newLecture}
                 show={show}
                 toggleShow={toggleShow}
             />
